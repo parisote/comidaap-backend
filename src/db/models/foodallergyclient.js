@@ -10,12 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      FoodAllergyClient.belongsTo(models.Client),
+      FoodAllergyClient.belongsTo(models.Ingredient)
     }
   }
   FoodAllergyClient.init({
-    clientsId: DataTypes.INTEGER,
-    ingredientsId: DataTypes.INTEGER
+    clientId: DataTypes.INTEGER,
+    ingredientId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'FoodAllergyClient',

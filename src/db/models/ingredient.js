@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       Ingredient.hasMany(models.Recipe),
-      Ingredient.hasMany(models.IngredientsPrice)
+      Ingredient.hasMany(models.IngredientsPrice),
+      Ingredient.hasMany(models.FoodAllergyClient)
     }
 
   }
