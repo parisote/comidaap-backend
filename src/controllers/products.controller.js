@@ -6,6 +6,30 @@ productsCtrl.getAllProducts = async (req,res) => {
     res.send(all);
 }
 
+productsCtrl.getProductByRecipeId = async (req,res) => {
+    const { id } = req.body;
+    const products = await Recipe.findAll(
+        {
+            where: { id:id },
+            include: [Product]
+        }
+    )
+    res.status(200).send({ products })
+}
+
+productsCtrl.getRecipeCostById = async (req,res) => {
+    const { id } = req.body;
+    let products = await this.getProductByRecipeId(id);
+    
+    let totalPrice = 0;
+    for (const element of products) {
+        const idProduct = element['Product']['id']
+
+        totalPrice += this.getTotalCostByProductId(idProduct);
+    }
+    res.status(200).send({ totalPrice: totalPrice })
+}
+
 productsCtrl.getTotalCostByProductId = async (req,res) => {
         const { id } = req.body;
         const p = await Recipe.findAll(
@@ -23,7 +47,7 @@ productsCtrl.getTotalCostByProductId = async (req,res) => {
                 where: { ingredientId: id}
             });
 
-            totalPrice += element['ingredientCount'] * a['price'];
+            totalPrice += a['cant'] * a['price'];
         }
 
         res.status(200).send({ totalPrice: totalPrice })
@@ -52,5 +76,7 @@ productsCtrl.getIngredientCostByProductId = async (req,res) => {
 
     res.status(200).send({ ingredientPrice })
 }
+
+
 
 module.exports = productsCtrl;
