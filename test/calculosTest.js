@@ -68,21 +68,20 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { id: 1, cant: 2 }
       const path = 'http://localhost:3000/products/getPriceByCant'
       const result = await axios.get(path, { data: properties });
-      expect(result.data.properties).to.equal(3.088);
+      expect(result.data.ProductPrice).to.equal(3.088);
   });
 
   it("Chequeo que devuelva el precio total de un producto, según la suma de los preicios de sus ingredientes", async function() {
     const properties = { id: 2}
     const path = 'http://localhost:3000/products/getTotalCostByProductId'
     const result = await axios.get(path, { data: properties });
-    expect(result.data.totalPrice).to.equal(1710);
+    expect(result.data.ProductPrice).to.equal(1710);
 });
 
-it("Chequeo que devuelva un array de los ingredientes del producto ingresado, con su precio", async function() {
+it ("Chequeo que devuelva un array de los ingredientes del producto ingresado, con su precio", async function () {
   const properties = {id: 1}
   const path = 'http://localhost:3000/products/getIngredientCostByProductId'
-  const result = await axios.get(path, {data: properties})
-  .then((res) => {
+  axios.get(path, {data: properties}) .then((res) => {
       assert.equal(res.status,201);
       done();
   }).catch(err => {
@@ -90,4 +89,33 @@ it("Chequeo que devuelva un array de los ingredientes del producto ingresado, co
   });
 });
 
+
 })
+
+/*
+describe("Comidapp", function () {
+
+  it("Checkeo si un usuario tiene alergias (POR TRUE)", async function () {
+    const properties = { clientId: 1 }
+    const path = 'http://localhost:3000/alergias/checkAllergyByClientId'
+    const result = await axios.get(path, { data: properties });
+    expect(result.data.hasAllergy).to.equal(true);
+  });
+
+  it("Checkeo si un usuario tiene alergias (POR FALSE)", async function () {
+    const properties = { clientId: 2 }
+    const path = 'http://localhost:3000/alergias/checkAllergyByClientId'
+    const result = await axios.get(path, { data: properties });
+    expect(result.data.hasAllergy).to.equal(false);
+  });
+
+  it("Checkeo si un usuario tiene alergias a un ungrediente particular", async function () {
+    const properties = { clientId: 1, ingredientId: 1 }
+    const path = 'http://localhost:3000/alergias/checkAllergyByClientIdAndIngredientId'
+
+    const result = await axios.get(path, { data: properties });
+
+    expect(result.data.hasAllergy).to.equal(true);
+  });
+});
+*/

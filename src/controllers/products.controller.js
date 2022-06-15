@@ -11,6 +11,7 @@ productsCtrl.getAllProducts = async (req,res) => {
 }
 
  productsCtrl.getPriceByCant = async (req,res) => {
+    try {
     const {id} = req.body;
     const {cant} = req.body;
     const ingredients = await Recipe.findAll(
@@ -32,37 +33,38 @@ productsCtrl.getAllProducts = async (req,res) => {
     }
 
     res.status(200).send({ProductPrice: totalPrice})
+} catch (error) {
+    res.status(500).send(error)
 }
-
+}
+ 
 
 productsCtrl.getTotalCostByProductId = async (req,res) => {
-    try {   
+    try {
         const { id } = req.body;
         const ingredients = await Recipe.findAll(
             {
                 where: { productId:id },
                 include: [Ingredient]
             }
-        )
-        console.log(ingredients)
+        ) 
 
         let totalPrice = 0;
         for (const element of ingredients) {
             const idIngredient = element['Ingredient']['id']
-            console.log(idIngredient)
             const a = await IngredientsPrice.findOne({
                 where: { ingredientId: idIngredient}
             });
-            console.log(a)
+      
             totalPrice += element['ingredientCount'] * a['price'];
         }
-    } catch (error) {
-        res.status(500).send({})
-    }
         res.status(200).send({ProductPrice: totalPrice})
+    } catch (error) {
+        res.status(500).send(error)
+    }
 }
-
 productsCtrl.getIngredientCostByProductId = async (req,res) => {
+    try {
     const { id } = req.body;
     const p = await Recipe.findAll(
         {
@@ -82,8 +84,11 @@ productsCtrl.getIngredientCostByProductId = async (req,res) => {
        
         ingredientPrice.push({ name: i,  price:element['ingredientCount'] * a['price'] });
     }
+        res.status(200).send({ ingredientPrice })
+} catch (error) {
+    res.status(500).send(error)
+}
 
-    res.status(200).send({ ingredientPrice })
 }
 
 productsCtrl.createProduct = async (req,res) => {
