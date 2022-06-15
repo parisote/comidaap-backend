@@ -2,19 +2,12 @@ const productsCtrl = {};
 const { Product, Recipe, Ingredient, IngredientsPrice } = require('../db/models');
 
 productsCtrl.getAllProducts = async (req,res) => {
+    try {
     const all = await Product.findAll();
-    res.send(all);
-}
-
-productsCtrl.getProductByRecipeId = async (req,res) => {
-    const { id } = req.body;
-    const products = await Recipe.findAll(
-        {
-            where: { id:id },
-            include: [Product]
-        }
-    )
-    res.status(200).send({ products })
+    res.status(200).send(all)
+    } catch (error) {
+        res.status(500).send({})
+    }
 }
 
 productsCtrl.getTotalCostByProductId = async (req,res) => {
