@@ -17,22 +17,9 @@ productsCtrl.getProductByRecipeId = async (req,res) => {
     res.status(200).send({ products })
 }
 
-productsCtrl.getRecipeCostById = async (req,res) => {
-    const { id } = req.body;
-    let products = await this.getProductByRecipeId(id);
-    
-    let totalPrice = 0;
-    for (const element of products) {
-        const idProduct = element['Product']['id']
-
-        totalPrice += this.getTotalCostByProductId(idProduct);
-    }
-    res.status(200).send({ totalPrice: totalPrice })
-}
-
 productsCtrl.getTotalCostByProductId = async (req,res) => {
         const { id } = req.body;
-        const p = await Recipe.findAll(
+        const recipes = await Recipe.findAll(
             {
                 where: { productId:id },
                 include: [Ingredient]
@@ -40,17 +27,17 @@ productsCtrl.getTotalCostByProductId = async (req,res) => {
         )
 
         let totalPrice = 0;
-        for (const element of p) {
-            const id = element['Ingredient']['id']
-
+        for (const element of recipes) {
+            const idIngredient = element['Ingredient']['id']
+         
             const a = await IngredientsPrice.findOne({
-                where: { ingredientId: id}
+                where: { ingredientId: idIngredient}
             });
 
-            totalPrice += a['cant'] * a['price'];
+            totalPrice += element['ingredientCount'] * a['price'];
         }
 
-        res.status(200).send({ totalPrice: totalPrice })
+        res.status(200).send({ProductPrice: totalPrice})
 }
 
 productsCtrl.getIngredientCostByProductId = async (req,res) => {
