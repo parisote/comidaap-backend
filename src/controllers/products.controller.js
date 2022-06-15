@@ -64,6 +64,18 @@ productsCtrl.getIngredientCostByProductId = async (req,res) => {
     res.status(200).send({ ingredientPrice })
 }
 
+productsCtrl.createProduct = async (req,res) => {
+    try {    
+        Product.create ({
+            name: req.body.name,
+            description: req.body.description
+        })
+    } catch(error) {s
+        return res.status(501).send({})
+    }
+    return res.status(200).send({})
+}
+
 
 
 module.exports = productsCtrl;
