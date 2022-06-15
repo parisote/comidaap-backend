@@ -6,11 +6,11 @@ productsCtrl.getAllProducts = async (req,res) => {
     const all = await Product.findAll();
     res.status(200).send(all)
     } catch (error) {
-        res.status(409).send({})
+        res.status(500).send({})
     }
 }
 
-productsCtrl.getPriceByCant = async (req,res) => {
+ productsCtrl.getPriceByCant = async (req,res) => {
     const {id} = req.body;
     const {cant} = req.body;
     const ingredients = await Recipe.findAll(
@@ -34,7 +34,9 @@ productsCtrl.getPriceByCant = async (req,res) => {
     res.status(200).send({ProductPrice: totalPrice})
 }
 
+
 productsCtrl.getTotalCostByProductId = async (req,res) => {
+    try {   
         const { id } = req.body;
         const ingredients = await Recipe.findAll(
             {
@@ -42,18 +44,21 @@ productsCtrl.getTotalCostByProductId = async (req,res) => {
                 include: [Ingredient]
             }
         )
+        console.log(ingredients)
 
         let totalPrice = 0;
         for (const element of ingredients) {
             const idIngredient = element['Ingredient']['id']
-         
+            console.log(idIngredient)
             const a = await IngredientsPrice.findOne({
                 where: { ingredientId: idIngredient}
             });
-
+            console.log(a)
             totalPrice += element['ingredientCount'] * a['price'];
         }
-
+    } catch (error) {
+        res.status(500).send({})
+    }
         res.status(200).send({ProductPrice: totalPrice})
 }
 
@@ -83,12 +88,14 @@ productsCtrl.getIngredientCostByProductId = async (req,res) => {
 
 productsCtrl.createProduct = async (req,res) => {
     try {    
-        Product.create ({
+        await Product.create ({
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            createdAt: req.body.createdAt,
+            updatedAt: req.body.updatedAt
         })
     } catch(error) {
-     res.status(409).send({})
+     res.status(500).send(error)
     }
      res.status(200).send({})
 }

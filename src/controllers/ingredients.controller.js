@@ -4,14 +4,17 @@ const { Ingredient } = require('../db/models');
 
 ingredientsCtrl.createIngredient = async (req,res) => {
     try {
-        Ingredient.create ({
+        await Ingredient.create ({
             name: req.body.name,
-            typeMeasureId: req.body.typeMeasureId
+            typeMeasuresId: req.body.typeMeasureId,
+            createdAt: req.body.createdAt,
+            updatedAt: req.body.updatedAt
         })
+
     } catch (error) {
-        res.status(409).send({})
+       return res.status(500).send(error)
     }    
-     res.status(200).send({})
+    return res.status(200).send()
 }
 
 module.exports = ingredientsCtrl;
