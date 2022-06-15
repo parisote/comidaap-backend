@@ -6,7 +6,7 @@ productsCtrl.getAllProducts = async (req,res) => {
     const all = await Product.findAll();
     res.status(200).send(all)
     } catch (error) {
-        res.status(500).send({})
+        res.status(409).send({})
     }
 }
 
