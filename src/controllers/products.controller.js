@@ -10,9 +10,33 @@ productsCtrl.getAllProducts = async (req,res) => {
     }
 }
 
+productsCtrl.getPriceByCant = async (req,res) => {
+    const {id} = req.body;
+    const {cant} = req.body;
+    const ingredients = await Recipe.findAll(
+        {
+            where: { productId:id },
+            include: [Ingredient]
+        }
+    )
+
+    let totalPrice = 0;
+    for (const element of ingredients) {
+        const idIngredient = element['Ingredient']['id']
+     
+        const a = await IngredientsPrice.findOne({
+            where: { ingredientId: idIngredient}
+        });
+
+        totalPrice += (element['ingredientCount'] * a['price']) * cant;
+    }
+
+    res.status(200).send({ProductPrice: totalPrice})
+}
+
 productsCtrl.getTotalCostByProductId = async (req,res) => {
         const { id } = req.body;
-        const recipes = await Recipe.findAll(
+        const ingredients = await Recipe.findAll(
             {
                 where: { productId:id },
                 include: [Ingredient]
@@ -20,7 +44,7 @@ productsCtrl.getTotalCostByProductId = async (req,res) => {
         )
 
         let totalPrice = 0;
-        for (const element of recipes) {
+        for (const element of ingredients) {
             const idIngredient = element['Ingredient']['id']
          
             const a = await IngredientsPrice.findOne({
@@ -50,7 +74,7 @@ productsCtrl.getIngredientCostByProductId = async (req,res) => {
             where: { ingredientId: id}
         });
         const i = element['Ingredient']['name']
-        console.log(i)
+       
         ingredientPrice.push({ name: i,  price:element['ingredientCount'] * a['price'] });
     }
 
@@ -63,10 +87,10 @@ productsCtrl.createProduct = async (req,res) => {
             name: req.body.name,
             description: req.body.description
         })
-    } catch(error) {s
-        return res.status(501).send({})
+    } catch(error) {
+     res.status(409).send({})
     }
-    return res.status(200).send({})
+     res.status(200).send({})
 }
 
 
