@@ -82,7 +82,7 @@ it ("Chequeo que devuelva un array de los ingredientes del producto ingresado, c
   const properties = {id: 1}
   const path = 'http://localhost:3000/products/getIngredientCostByProductId'
   axios.get(path, {data: properties}) .then((res) => {
-      assert.equal(res.status,201);
+      assert.equal(res.status,201)&&assert.equal(res.data.ingredientsPrice.length,3)
       done();
   }).catch(err => {
       assert.equal(err.res.status,500)
@@ -91,31 +91,3 @@ it ("Chequeo que devuelva un array de los ingredientes del producto ingresado, c
 
 
 })
-
-/*
-describe("Comidapp", function () {
-
-  it("Checkeo si un usuario tiene alergias (POR TRUE)", async function () {
-    const properties = { clientId: 1 }
-    const path = 'http://localhost:3000/alergias/checkAllergyByClientId'
-    const result = await axios.get(path, { data: properties });
-    expect(result.data.hasAllergy).to.equal(true);
-  });
-
-  it("Checkeo si un usuario tiene alergias (POR FALSE)", async function () {
-    const properties = { clientId: 2 }
-    const path = 'http://localhost:3000/alergias/checkAllergyByClientId'
-    const result = await axios.get(path, { data: properties });
-    expect(result.data.hasAllergy).to.equal(false);
-  });
-
-  it("Checkeo si un usuario tiene alergias a un ungrediente particular", async function () {
-    const properties = { clientId: 1, ingredientId: 1 }
-    const path = 'http://localhost:3000/alergias/checkAllergyByClientIdAndIngredientId'
-
-    const result = await axios.get(path, { data: properties });
-
-    expect(result.data.hasAllergy).to.equal(true);
-  });
-});
-*/
