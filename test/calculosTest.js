@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice } = require('../db/models');
 
-describe("List all products response", () => {
+describe("Costos y cantidades de productos e ingredientes", () => {
     it ("Products should be an Array", async function () {
         axios.get('localhost:3000/products/getAllProducts') .then((res) => {
             assert.equal(res.status,201);
