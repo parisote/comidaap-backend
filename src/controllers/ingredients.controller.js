@@ -3,11 +3,14 @@ const { Ingredient } = require('../db/models');
 
 
 ingredientsCtrl.createIngredient = async (req,res) => {
-   
+    try {
         Ingredient.create ({
             name: req.body.name
         })
-    return res.status(200).send({})
+    } catch (error) {
+        res.status(501).send({})
+    }    
+     res.status(200).send({})
 }
 
 module.exports = ingredientsCtrl;
