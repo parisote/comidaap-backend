@@ -44,7 +44,7 @@ recipesCtrl.createRecipe = async (req, res) => {
 
 //Impactar la tabla
     //Crear Producto
-    await Product.create ({
+   const productCreate = await Product.create ({
       name: products.name,
       description: products.description,
       createdAt: new Date,
@@ -56,26 +56,17 @@ recipesCtrl.createRecipe = async (req, res) => {
     createdAt: new Date,
 })
 
-    //Obtener el id del producto
-    productsFind = await Product.findOne({
-      where: { name: products.name },
-    });
-
-    //TODO
-    //const productFindId = productsFind.id <<<GET IDDD
-    
-
-  /*  //Impactar en la tabla Recetas
-    const promisesIngred = ingredients.map(async (ingredient) =>
+   //Impactar en la tabla Recetas
+   const promisesIngred = ingredients.map(async (ingredient) =>
     Recipe.create(
-      { productId: productFindId,
+      { productId: productCreate.id,
         ingredientId: ingredient.id,
         ingredientCount: (ingredient.amount/producedAmount),
-        createdAt: new Date,
+        createdAt: new Date(),
      }
     )
   );
-  */
+    await Promise.all(promisesIngred)
     
    
   } catch (error) {
