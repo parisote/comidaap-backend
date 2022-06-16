@@ -8,7 +8,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { name: 'Salsa Golf', description: 'Salsa natural de color rosado', createdAt: new Date()}
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
@@ -19,7 +19,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { productId: 1, ingredientId: 2, ingredientCount: 5, createdAt: new Date()}
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
@@ -30,7 +30,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { name: 'Champiñón australiano', typeMeasureId: 1, createdAt: new Date}
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
@@ -47,7 +47,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       }
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
@@ -57,7 +57,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
   describe("GET", () => {    
   it ("Products should be an Array", async function () {
     axios.get('localhost:3000/products/getAllProducts') .then((res) => {
-        assert.equal(res.status,201);
+        assert.equal(res.status,200);
         done();
     }).catch(err => {
         assert.equal(err.res.status,500)

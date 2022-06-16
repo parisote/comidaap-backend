@@ -8,7 +8,7 @@ describe("Comidapp", function () {
     const properties = { clientId: 3, ingredientId: 1 }
     axios.post(path, properties).
       then((res) => {
-        expect(res.res.status).to.equal(200);
+        expect(res.res.status).to.equal(201);
       }).catch(err => {
         expect(err.res.status).to.equal(409);
       })
@@ -19,7 +19,7 @@ describe("Comidapp", function () {
     const properties = { clientId: 1, ingredientId: 1 }
     axios.post(path, properties).
       then((res) => {
-        expect(res.res.status).to.equal(200);
+        expect(res.res.status).to.equal(201);
       }).catch(err => {
         expect(err.res.status).to.equal(409);
       })
