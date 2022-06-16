@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "mocha",
     "dev": "nodemon src/index.js",
     "run-migration": "npx sequelize-cli db:migrate",
     "run-seeders": "npx sequelize-cli db:seed:all",
-    "test": "mocha"
+    "test-mocha": "mocha --recursive --exit ./test"
 },
   "keywords": [],
   "author": "",
