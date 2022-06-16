@@ -54,7 +54,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
     });
   })
  */
-  describe("GET", () => {    
+  describe("Comidaap-Products", () => {    
   it ("Products should be an Array", async function () {
     axios.get('localhost:3000/products/getAllProducts') .then((res) => {
         assert.equal(res.status,200);
@@ -68,14 +68,14 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { id: 1, cant: 2 }
       const path = 'http://localhost:3000/products/getPriceByCant'
       const result = await axios.get(path, { data: properties });
-      expect(result.data.ProductPrice).to.equal(3.088);
+      expect(result.data.ProductPrice).to.equal(63800);
   });
 
   it("Chequeo que devuelva el precio total de un producto, según la suma de los preicios de sus ingredientes", async function() {
     const properties = { id: 2}
     const path = 'http://localhost:3000/products/getTotalCostByProductId'
     const result = await axios.get(path, { data: properties });
-    expect(result.data.ProductPrice).to.equal(1710);
+    expect(result.data.ProductPrice).to.equal(28728);
 });
 
 it ("Chequeo que devuelva un array de los ingredientes del producto ingresado, con su precio", async function () {
@@ -88,6 +88,4 @@ it ("Chequeo que devuelva un array de los ingredientes del producto ingresado, c
       assert.equal(err.res.status,500)
   });
 });
-
-
 })

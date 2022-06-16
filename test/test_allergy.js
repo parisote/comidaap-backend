@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 
-describe("Comidapp", function () {
+describe("Comidapp-Allergy", function () {
 
   it("Agrego una alergia a un cliente", function () {
     const path = 'http://localhost:3000/alergias/addAllergyToClient'
