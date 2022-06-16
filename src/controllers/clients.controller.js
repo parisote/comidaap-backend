@@ -18,4 +18,20 @@ clientsCtrl.getClientByLastName = async (req,res) => {
     res.send(c);
 }
 
+clientsCtrl.createClient = async (req,res) => {
+   try {
+    await Client.create ({
+        last_name: req.body.last_name,
+        first_name: req.body.first_name,
+        email: req.body.email,
+        note: req.body.note,
+        createdAt: req.body.createdAt,
+        updatedAt: req.body.updatedAt
+        })
+    } catch (error) {
+        return res.status(500).send()
+    }
+    return res.status(201).send({})    
+}
+
 module.exports = clientsCtrl;
