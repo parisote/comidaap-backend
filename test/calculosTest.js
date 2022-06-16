@@ -3,7 +3,7 @@ const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/models');
 
  describe("Creación de productos, ingredientes, recetas y clientes", () => {
-    it("Create product", async function () {
+    it("Create product", async () => {
       const path = 'http://localhost:3000/products/createProduct'
       const properties = { name: 'Pollo al Espiedo', description: 'Pollo con salsita una delicia'}
       axios.post(path, properties).
@@ -12,7 +12,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
         })
     });
 
-    it("Create recipe", async function () {
+    it("Create recipe", async () => {
       const path = 'http://localhost:3000/recipes/createRecipe'
       const properties = { productId: 1, ingredientId: 7, ingredientCount: 10}
       axios.post(path, properties).
@@ -21,7 +21,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
         })
     });
 
-    it("Create ingredient", async function () {
+    it("Create ingredient", async () => {
       const path = 'http://localhost:3000/ingredients/createIngredient'
       const properties = { name: 'Jugo de limón', typeMeasureId: 1}
       axios.post(path, properties).
@@ -29,7 +29,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
           expect(res.res.status).to.equal(200);
         })
     });
-    it("Create ingredient price", async function () {
+    it("Create ingredient price", async () => {
       const path = 'http://localhost:3000/ingredientsPrice/createIngredientPrice'
       const properties = { ingredientId: 16, cant: 1, price: 200}
       axios.post(path, properties).
@@ -38,7 +38,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
         })
     });
 
-    it("Create client", async function () {
+    it("Create client", async () => {
       const path = 'http://localhost:3000/clients/createClient'
       const properties = {
         last_name: 'Bareiro',
@@ -55,7 +55,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
 
 
   describe("Cálculos de precios de productos e ingredientes", () => {    
-  it ("Products should be an Array", async function () {
+  it ("Products should be an Array", async () => {
     axios.get('localhost:3000/products/getAllProducts') .then((res) => {
         assert.equal(res.status,200);
         done();
