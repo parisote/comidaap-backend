@@ -2,53 +2,55 @@ const recipesCtrl = {};
 const { Recipe } = require('../db/models');
 
 
-recipesCtrl.createRecipe = async (req,res) => {
-    const productId = req.body.productId;
-    const ingredientId = req.body.ingredientId;
-    const ingredientCount = req.body.ingredientCount;
-    const recipe = await Recipe.findOne ({
-        where: {productId:productId, ingredientId:ingredientId}
-    })
-    if (!isNaN(ingredientCount)||!isNaN(productId)||!isNaN(ingredientId)) {
-        if (recipe==null) {
-            try {
-                await Recipe.create ({
+recipesCtrl.createRecipe = async (req, res) => {
+    try {
+        const productId = req.body.productId;
+        const ingredientId = req.body.ingredientId;
+        const ingredientCount = req.body.ingredientCount;
+        const recipe = await Recipe.findOne({
+            where: { productId: productId, ingredientId: ingredientId }
+        })
+        if (!isNaN(ingredientCount) || !isNaN(productId) || !isNaN(ingredientId)) {
+            if (recipe == null) {
+                await Recipe.create({
                     productId: productId,
                     ingredientId: ingredientId,
                     ingredientCount: ingredientCount,
                     createdAt: req.body.createdAt,
                     updatedAt: req.body.updatedAt
                 })
-                res.status(200)
-            } catch (error) {
-                res.status(500).send(error)
-            }    
+                res.status(200).send({})
+
+            } else {
+                res.status(500).send('Este producto ya está asociado a este ingrediente.')
+            }
         } else {
-            res.status(500).send('Este producto ya está asociado a este ingrediente.')
+            res.status(500).send('Los parámetros deben ser númericos.')
         }
-    } else {
-        res.status(500).send('Los parámetros deben ser númericos.')
-    }    
+    } catch (error) {
+        res.status(500).send(error)
+    }
 }
 
-recipesCtrl.deleteRecipe = async (req,res) => {
-    const {productId} = req.body;
-    const {ingredientId} = req.body;
-    const r = Recipe.findOne({
-        where: {productId:productId, ingredientId:ingredientId}
-    })
-    if (r != null) {
-        try {    
-            await Recipe.delete ({
-                where: {productId:productId, ingredientId:ingredientId}
+recipesCtrl.deleteRecipe = async (req, res) => {
+    try {
+        const { productId } = req.body;
+        const { ingredientId } = req.body;
+        const r = await Recipe.findOne({
+            where: { productId: productId, ingredientId: ingredientId }
+        })
+        if (r != null) {
+            await Recipe.destroy({
+                where: { productId: productId, ingredientId: ingredientId }
             });
-            res.status(200)
-        } catch (error) {
-            res.status(500).send(error)
+            res.status(200).send({})
+
+        } else {
+            res.status(500).send('No existe la receta.')
         }
-    } else {
-        res.status(500).send('No existe la receta.')
-}
+    } catch (error) {
+        res.status(500).send(error)
+    }
 }
 
 module.exports = recipesCtrl;

@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/models');
 
- /*describe("POST", () => {
+ describe("POST", () => {
     it("Create product", async function () {
       const path = 'http://localhost:3000/products/createProduct'
       const properties = { name: 'Pollo al Espiedo', description: 'Pollo con salsita una delicia', createdAt: new Date()}
@@ -120,7 +120,7 @@ it ("Chequeo que devuelva el cliente de por su ID", async function () {
 });
 
 });
-*/
+
 describe("DELETE", () => { 
   it("Delete client by email", async function () {
     const path = 'http://localhost:3000/clients/deleteClientByEmail'
