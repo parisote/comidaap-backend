@@ -7,28 +7,18 @@ const myPath = "http://localhost:"+process.env.PUERTO+"/recipes/createRecipe"
 
 describe("Test Recipes", () => {
   describe("Fail Validations ", () => {
-    it("test validation of recipes is null", async () => {
+    it("Test validation of recipes is null", async () => {
       const properties = { id: 1, cant: 2 };
       const path = myPath;
-      axios
-        .post(path, {
-          products: null,
-          ingredients: [
-            {
-              id: 28,
-              amount: 4,
-            },
-            {
-              id: 14,
-              amount: 4,
-            },
+      axios.post(path, { products: null, ingredients: [
+            {id: 28,amount: 4},
+            {id: 14,amount: 4}
           ],
           producedAmount: 4,
           typeMeasure: 2,
         })
-        .then((res) => {
-          assert.equal(res.status, 201) &&
-            assert.equal(res.data.ingredientsPrice.length, 3);
+        .then((res) => {assert.equal(res.status, 201) &&
+                        assert.equal(res.data.ingredientsPrice.length, 3);
           done();
         })
         .catch((err) => {
@@ -36,28 +26,26 @@ describe("Test Recipes", () => {
         });
     });
 
-    it("test one fiel ingredient is null", async () => {
+    it("Test one field ingredient is null", async () => {
       const properties = { id: 1, cant: 2 };
       const path = myPath;
-      axios
-        .post(path, {
-          products: {
+      axios.post(path, { products: {
             name: "Pan de Hamburguesa de Campo con Oliva",
-            description: "Algo de texto",
+            description: "Algo de texto"
           },
           ingredients: [
             { id: 2, amount: 1200 },
             { id: 4, amount: 8 },
             { id: 10, amount: 150 },
             { id: 6, amount: 15 },
-            { id: null, amount: 14 },
+            { id: null, amount: 14 }
           ],
           producedAmount: 4,
           typeMeasure: 3,
         })
         .then((res) => {
           assert.equal(res.status, 201) &&
-            assert.equal(res.data.ingredientsPrice.length, 3);
+          assert.equal(res.data.ingredientsPrice.length, 3);
           done();
         })
         .catch((err) => {
@@ -65,35 +53,112 @@ describe("Test Recipes", () => {
         });
     });
 
-    it("test name recipe is null", async () => {
+    it("Test name recipe is null", async () => {
       const properties = { id: 1, cant: 2 };
       const path = myPath;
-      axios
-        .post(path, {
+      axios.post(path, {
           products: {
-            name: "",
-            description: "Algo de texto",
+            name: "Pan de Hamburguesa de Campo",
+            description: "Algo de texto"
           },
           ingredients: [
             { id: 2, amount: 1200 },
             { id: 4, amount: 8 },
             { id: 10, amount: 150 },
             { id: 6, amount: 15 },
-            { id: 8, amount: 14 },
+            { id: 8, amount: 14 }
           ],
           producedAmount: 4,
           typeMeasure: 3,
         })
         .then((res) => {
-          assert.equal(res.status, 201) &&
+            assert.equal(res.status, 201) &&
             assert.equal(res.data.ingredientsPrice.length, 3);
           done();
         })
         .catch((err) => {
-          assert.equal(err.res.status, 400);
+            assert.equal(err.res.status, 400);
         });
     });
+
+    it("Test Recipe name Alredy exists", async () => {
+      const properties = { id: 1, cant: 2 };
+      const path = myPath;
+        axios.post(path, { products: {
+            name: "Pan de Hamburguesa de Campo",
+            description: "Algo de texto"
+        },
+        ingredients: [
+          { id: 2, amount: 1200 },
+          { id: 4, amount: 8 },
+          { id: 10, amount: 150 },
+          { id: 6, amount: 15 }
+        ],
+        producedAmount: 4,
+        typeMeasure: 3,
+      })
+      .then((res) => {
+        assert.equal(res.status, 201) &&
+        assert.equal(res.data.ingredientsPrice.length, 3);
+        done();
+      })
+      .catch((err) => {
+        assert.equal(err.res.status, 400);
+    });
+});
+
+it("Ingredient ID doesn't Exist", async () => {
+  const properties = { id: 1, cant: 2 };
+  const path = myPath;
+  axios.post(path, { products: {
+        name: "Pan de Hamburguesa de Campo",
+        description: "Algo de texto"
+      },
+      ingredients: [
+        { id: 2, amount: 1200 },
+        { id: 4, amount: 8 },
+        { id: 10, amount: 150 },
+        { id: 66, amount: 15 }    //non existing ID
+      ],
+      producedAmount: 4,
+      typeMeasure: 3,
+    })
+    .then((res) => {
+      assert.equal(res.status, 201) &&
+        assert.equal(res.data.ingredientsPrice.length, 3);
+      done();
+    })
+    .catch((err) => {
+      assert.equal(err.res.status, 400);
+    });
+});
+
+it("MesureTyoe ID doesn't Exist", async () => {
+  const properties = { id: 1, cant: 2 };
+  const path = myPath;
+  axios.post(path, { products: {
+        name: "Pan de Hamburguesa de Campo",
+        description: "Algo de texto"
+      },
+      ingredients: [
+        { id: 2, amount: 1200 },
+        { id: 4, amount: 8 },
+        { id: 10, amount: 150 },
+        { id: 6, amount: 15 }    
+      ],
+      producedAmount: 4,
+      typeMeasure: 33,       //non existing measureType ID
+    })
+    .then((res) => {
+      assert.equal(res.status, 201) &&
+        assert.equal(res.data.ingredientsPrice.length, 3);
+      done();
+    })
+    .catch((err) => {
+      assert.equal(err.res.status, 400);
+    });
+});
+
   })
 });
-  
-  
+
