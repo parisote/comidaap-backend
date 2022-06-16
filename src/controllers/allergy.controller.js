@@ -46,7 +46,6 @@ allergyCtrl.addAllergyToClient = async (req,res) => {
 
         let allergy = ''
         let result = ''
-        console.log(total)
         if(!total || total.length == 0){
             allergy = await FoodAllergyClient.create({ clientId: clientId, ingredientId: ingredientId, createdAt: new Date } );
             result = { clientId:allergy.clientId, ingredientId:allergy.ingredientId, createdAt: allergy.createdAt};
@@ -57,6 +56,17 @@ allergyCtrl.addAllergyToClient = async (req,res) => {
         
     } catch (error){
         res.status(500).send(error);
+    }
+}
+
+allergyCtrl.deleteAllAllergiesToClient = async (req,res) => {
+    try{
+        const { clientId } = req.body;
+        await FoodAllergyClient.destroy({ where: { clientId: clientId } } );
+        result = { result: 'OK' };
+        res.status(200).send(result);
+    } catch(err){
+        res.status(500).send(err);
     }
 }
 
