@@ -27,10 +27,10 @@ recipesCtrl.createRecipe = async (req, res) => {
     }
     //Promesas en PALALELO
     //Busca si todos los ID de ingredientes existen
-    const promesas = ingredients.map(async (ingredient) =>
+    const promises = ingredients.map(async (ingredient) =>
       Ingredient.findOne({ where: { id: ingredient.id } })
     );
-    const result = await Promise.all(promesas);
+    const result = await Promise.all(promises);
     if (result.some((ingredient) => ingredient === null)) {
       return res.status(400).json({status: "error", message: "Alguno de los ingredientes no existe"});
     }
@@ -44,15 +44,39 @@ recipesCtrl.createRecipe = async (req, res) => {
 
 //Impactar la tabla
     //Crear Producto
+    await Product.create ({
+      name: products.name,
+      description: products.description,
+      createdAt: new Date,
+  })
+  //Crear Ingrediente que es un Producto(receta)
+  await Ingredient.create ({
+    name: products.name,
+    typeMeasuresId: typeMeasure,
+    createdAt: new Date,
+})
 
     //Obtener el id del producto
+    productsFind = await Product.findOne({
+      where: { name: products.name },
+    });
+
+    //TODO
+    //const productFindId = productsFind.id <<<GET IDDD
     
 
-    //Impactar en la tabla Recetas
-
-       
-
-
+  /*  //Impactar en la tabla Recetas
+    const promisesIngred = ingredients.map(async (ingredient) =>
+    Recipe.create(
+      { productId: productFindId,
+        ingredientId: ingredient.id,
+        ingredientCount: (ingredient.amount/producedAmount),
+        createdAt: new Date,
+     }
+    )
+  );
+  */
+    
    
   } catch (error) {
     return res.status(500).send(error);

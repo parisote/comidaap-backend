@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ingredientCount: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(10,3)
       },
       createdAt: {
         allowNull: false,

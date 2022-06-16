@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   Recipe.init({
     productId: DataTypes.INTEGER,
     ingredientId: DataTypes.INTEGER,
-    ingredientCount: DataTypes.INTEGER
+    ingredientCount: DataTypes.DECIMAL(10,3)
   }, {
     sequelize,
     modelName: 'Recipe',
