@@ -5,7 +5,7 @@ const { Ingredient, IngredientsPrice } = require('../db/models');
 ingredientsCtrl.createIngredient = async (req, res) => {
     try {
         const name = req.body.name;
-        const ingredient = Ingredient.findOne({
+        const ingredient = await Ingredient.findOne({
             where: { name: name }
         });
         if (ingredient == null) {
@@ -19,7 +19,6 @@ ingredientsCtrl.createIngredient = async (req, res) => {
             res.status(500).send('El ingrediente ya existe')
         }
     } catch (error) {
-
         res.status(500).send(error)
     }
 }

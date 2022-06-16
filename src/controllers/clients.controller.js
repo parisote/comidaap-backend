@@ -44,16 +44,15 @@ clientsCtrl.getClientByLastName = async (req, res) => {
 
 clientsCtrl.createClient = async (req, res) => {
     try {
-        const { email } = req.body.email;
-        const client = await Client.findOne({
+        const email  = req.body.email;
+        const c = await Client.findOne({
             where: { email: email }
         })
-        if (client == null) {
-
+        if (c == null) {
             await Client.create({
                 last_name: req.body.last_name,
                 first_name: req.body.first_name,
-                email: req.body.email,
+                email: email,
                 note: req.body.note,
                 createdAt: new Date()
             })
@@ -91,7 +90,7 @@ clientsCtrl.deleteClientByEmail = async (req, res) => {
             where: { email: email }
         })
         if (c != null) {
-            await Client.delete({
+            await Client.destroy({
                 where: { email: email }
             });
             res.status(200).send({})
