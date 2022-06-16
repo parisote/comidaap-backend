@@ -108,7 +108,7 @@ describe("Delete de cliente, ingrediente, producto y receta", () => {
   it("Delete client by email", async function () {
     const path = 'http://localhost:3000/clients/deleteClientByEmail'
     const properties = {email: 'adam_casla@gmail.com'}
-     axios.delete(path, properties).
+     await axios.delete(path, properties).
       then((res) => {
         expect(res.res.status).to.equal(200);
       })
@@ -116,7 +116,7 @@ describe("Delete de cliente, ingrediente, producto y receta", () => {
   it("Delete ingredient price", async function () {
     const path = 'http://localhost:3000/ingredientsPrice/deleteIngredientPrice'
     const properties = {ingredientId:15}
-     axios.delete(path, properties).
+    await axios.delete(path, properties).
       then((res) => {
         expect(res.res.status).to.equal(200);
       })
@@ -124,7 +124,7 @@ describe("Delete de cliente, ingrediente, producto y receta", () => {
   it("Delete ingredient by name", async function () {
     const path = 'http://localhost:3000/ingredients/deleteIngredientByName'
     const properties = {name:'Jugo de limón'}
-     axios.delete(path, properties).
+    await axios.delete(path, properties).
       then((res) => {
         expect(res.res.status).to.equal(200);
       })
@@ -132,7 +132,7 @@ describe("Delete de cliente, ingrediente, producto y receta", () => {
   it("Delete product by name", async function () {
     const path = 'http://localhost:3000/products/deleteProductByName'
     const properties = {name:'Ravioles'}
-     axios.delete(path, properties).
+    await axios.delete(path, properties).
       then((res) => {
         expect(res.res.status).to.equal(200);
       })
@@ -140,7 +140,7 @@ describe("Delete de cliente, ingrediente, producto y receta", () => {
   it("Delete recipe", async function () {
     const path = 'http://localhost:3000/recipes/deleteRecipe'
     const properties = {productId:1,ingredientId:7}
-    axios.delete(path, properties).
+    await axios.delete(path, properties).
       then((res) => {
         expect(res.res.status).to.equal(200);
       })

@@ -36,14 +36,13 @@ recipesCtrl.deleteRecipe = async (req, res) => {
         const { productId } = req.body;
         const { ingredientId } = req.body;
         const r = await Recipe.findOne({
-            where: { productId: productId, ingredientId: ingredientId }
+            where: [{ productId: productId}, {ingredientId: ingredientId }]
         })
         if (r != null) {
             await Recipe.destroy({
                 where: { productId: productId, ingredientId: ingredientId }
             });
             res.status(200).send({})
-
         } else {
             res.status(500).send('No existe la receta.')
         }
