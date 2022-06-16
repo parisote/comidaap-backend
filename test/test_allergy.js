@@ -3,26 +3,19 @@ const { expect, assert } = require("chai");
 
 describe("Comidapp-Allergy", function () {
 
-  it("Agrego una alergia a un cliente", function () {
+  it("Agrego una alergia a un cliente", async function () {
     const path = 'http://localhost:3000/alergias/addAllergyToClient'
     const properties = { clientId: 3, ingredientId: 1 }
-    axios.post(path, properties).
-      then((res) => {
-        expect(res.res.status).to.equal(201);
-      }).catch(err => {
-        expect(err.res.status).to.equal(409);
-      })
+    const result = await axios.post(path, properties);
+    expect(result.status).to.equal(201);
   });
 
-  it("Agrego una alergia ya existente a un cliente", function () {
+  it("Agrego una alergia ya existente a un cliente", async function () {
     const path = 'http://localhost:3000/alergias/addAllergyToClient'
     const properties = { clientId: 1, ingredientId: 1 }
-    axios.post(path, properties).
-      then((res) => {
-        expect(res.res.status).to.equal(201);
-      }).catch(err => {
-        expect(err.res.status).to.equal(409);
-      })
+    const result = await axios.post(path, properties);
+    console.log(result.status)
+    expect(result.status).to.equal(409);
   });
 
   it("Checkeo si un usuario tiene alergias (POR TRUE)", async function () {
