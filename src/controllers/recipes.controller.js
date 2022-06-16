@@ -16,8 +16,7 @@ recipesCtrl.createRecipe = async (req, res) => {
                     productId: productId,
                     ingredientId: ingredientId,
                     ingredientCount: ingredientCount,
-                    createdAt: req.body.createdAt,
-                    updatedAt: req.body.updatedAt
+                    createdAt: new Date()
                 })
                 res.status(201).send({})
 
