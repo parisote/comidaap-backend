@@ -1,18 +1,10 @@
 const recipesCtrl = {};
 const { Recipe, Product, Ingredient, TypeMeasure, Sequelize, sequelize } = require("../db/models");
 const productsCtrl = {};
-/*
-FORMATO de lo RECIBIDO
 
-const ingredients = [{id: 1, amount: 1},];
-
-const products = {name: "", description: ""};
-
-*/
 recipesCtrl.createRecipe = async (req, res) => {
   try {
     const { products, ingredients, producedAmount, typeMeasure } = req.body;
-
 //VERIFICACION
     //Si algún campo está vacio:
     if (!products || !products.name || !ingredients || !producedAmount || !typeMeasure) {
@@ -67,13 +59,10 @@ recipesCtrl.createRecipe = async (req, res) => {
     )
   );
     await Promise.all(promisesIngred)
-    
-   
+       
   } catch (error) {
     return res.status(500).send(error);
   }
-
-//Creacion de tablas
 
   res.status(200).send({});
 };

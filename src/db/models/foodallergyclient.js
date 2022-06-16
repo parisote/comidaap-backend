@@ -6,12 +6,13 @@ module.exports = (sequelize, DataTypes) => {
   class FoodAllergyClient extends Model {
    
     static associate(models) {
-      
+      FoodAllergyClient.belongsTo(models.Client),
+      FoodAllergyClient.belongsTo(models.Ingredient)
     }
   }
   FoodAllergyClient.init({
-    clientsId: DataTypes.INTEGER,
-    ingredientsId: DataTypes.INTEGER
+    clientId: DataTypes.INTEGER,
+    ingredientId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'FoodAllergyClient',

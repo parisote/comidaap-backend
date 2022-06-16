@@ -9,7 +9,7 @@
     "run-migration": "npx sequelize-cli db:migrate",
     "run-seeders": "npx sequelize-cli db:seed:all",
     "test-mocha": "mocha --recursive --exit ./test"
-  },
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

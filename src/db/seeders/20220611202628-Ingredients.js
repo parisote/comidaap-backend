@@ -19,10 +19,6 @@ module.exports = {
       typeMeasuresId: 3,
       createdAt: new Date
     },{
-      name: 'Pan de Hamburguesa de Campo',
-      typeMeasuresId: 3,
-      createdAt: new Date
-    },{
       name: 'Sal',
       typeMeasuresId: 2,
       createdAt: new Date
@@ -49,10 +45,6 @@ module.exports = {
     },{
       name: 'Cebolla',
       typeMeasuresId: 2,
-      createdAt: new Date
-    },{
-      name: 'Medallón de Carne 160gr',
-      typeMeasuresId: 3,
       createdAt: new Date
     },{
       name: 'Ketchup',
