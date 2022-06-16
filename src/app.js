@@ -11,6 +11,7 @@ app.get('/', function(req,res) {
 
 app.use('/clients', require('./routes/clients'));
 app.use('/products', require('./routes/products'));
+app.use('/alergias', require('./routes/allergy'));
 app.use('/ingredients', require('./routes/ingredients'));
 app.use('/recipes', require('./routes/recipes'));
 app.use('/ingredientsPrice', require('./routes/ingredientsPrice'))

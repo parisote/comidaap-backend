@@ -2,13 +2,13 @@ const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/models');
 
- describe("POST", () => {
+ describe("Creación de productos, ingredientes, recetas y clientes", () => {
     it("Create product", async function () {
       const path = 'http://localhost:3000/products/createProduct'
       const properties = { name: 'Pollo al Espiedo', description: 'Pollo con salsita una delicia', createdAt: new Date()}
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
@@ -19,7 +19,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { productId: 1, ingredientId: 3, ingredientCount: 10, createdAt: new Date()}
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
@@ -40,7 +40,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { ingredientId: 22, cant: 1, price: 10, createdAt: new Date()}
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
@@ -57,17 +57,18 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       }
       axios.post(path, properties).
         then((res) => {
-          expect(res.res.status).to.equal(200);
+          expect(res.res.status).to.equal(201);
         }).catch(err => {
           expect(err.res.status).to.equal(500);
         })
     });
-  });
- 
-  describe("GET", () => {    
+  })
+
+
+  describe("Cálculos de precios de productos e ingredientes", () => {    
   it ("Products should be an Array", async function () {
     axios.get('localhost:3000/products/getAllProducts') .then((res) => {
-        assert.equal(res.status,201);
+        assert.equal(res.status,200);
         done();
     }).catch(err => {
         assert.equal(err.res.status,500)
@@ -78,14 +79,14 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { id: 1, cant: 2 }
       const path = 'http://localhost:3000/products/getPriceByCant'
       const result = await axios.get(path, { data: properties });
-      expect(result.data.ProductPrice).to.equal(3.288);
+      expect(result.data.ProductPrice).to.equal(63800);
   });
 
   it("Chequeo que devuelva el precio total de un producto, según la suma de los preicios de sus ingredientes", async function() {
     const properties = { id: 2}
     const path = 'http://localhost:3000/products/getTotalCostByProductId'
     const result = await axios.get(path, { data: properties });
-    expect(result.data.ProductPrice).to.equal(1710);
+    expect(result.data.ProductPrice).to.equal(28728);
 });
 
 it ("Chequeo que devuelva un array de los ingredientes del producto ingresado, con su precio", async function () {
@@ -119,9 +120,10 @@ it ("Chequeo que devuelva el cliente de por su ID", async function () {
   });
 });
 
+
 });
 
-describe("DELETE", () => { 
+describe("Delete de cliente, ingrediente, producto y receta", () => { 
   it("Delete client by email", async function () {
     const path = 'http://localhost:3000/clients/deleteClientByEmail'
     const properties = {email: 'adam_casla@gmail.com'}

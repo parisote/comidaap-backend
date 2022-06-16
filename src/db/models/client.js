@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Client extends Model {
 
     static associate(models) {
-
+      Client.hasMany(models.FoodAllergyClient)
     }
   }
   Client.init({

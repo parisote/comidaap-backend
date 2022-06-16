@@ -19,7 +19,7 @@ recipesCtrl.createRecipe = async (req, res) => {
                     createdAt: req.body.createdAt,
                     updatedAt: req.body.updatedAt
                 })
-                res.status(200).send({})
+                res.status(201).send({})
 
             } else {
                 res.status(500).send('Este producto ya está asociado a este ingrediente.')

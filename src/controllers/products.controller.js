@@ -123,7 +123,7 @@ productsCtrl.createProduct = async (req, res) => {
                 createdAt: req.body.createdAt,
                 updatedAt: req.body.updatedAt
             })
-            res.status(200).send({})
+            res.status(201).send({})
 
         } else {
             res.status(500).send('Product already exists')
@@ -131,6 +131,7 @@ productsCtrl.createProduct = async (req, res) => {
     } catch (error) {
         res.status(500).send(error)
     }
+
 }
 
 productsCtrl.deleteProductById = async (req, res) => {
