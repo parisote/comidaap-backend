@@ -5,7 +5,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
  describe("Creación de productos, ingredientes, recetas y clientes", () => {
     it("Create product", async function () {
       const path = 'http://localhost:3000/products/createProduct'
-      const properties = { name: 'Pollo al Espiedo', description: 'Pollo con salsita una delicia', createdAt: new Date()}
+      const properties = { name: 'Pollo al Espiedo', description: 'Pollo con salsita una delicia'}
       axios.post(path, properties).
         then((res) => {
           expect(res.res.status).to.equal(201);
@@ -14,7 +14,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
 
     it("Create recipe", async function () {
       const path = 'http://localhost:3000/recipes/createRecipe'
-      const properties = { productId: 1, ingredientId: 7, ingredientCount: 10, createdAt: new Date()}
+      const properties = { productId: 1, ingredientId: 7, ingredientCount: 10}
       axios.post(path, properties).
         then((res) => {
           expect(res.res.status).to.equal(201);
@@ -23,7 +23,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
 
     it("Create ingredient", async function () {
       const path = 'http://localhost:3000/ingredients/createIngredient'
-      const properties = { name: 'Jugo de limón', typeMeasureId: 1, createdAt: new Date()}
+      const properties = { name: 'Jugo de limón', typeMeasureId: 1}
       axios.post(path, properties).
         then((res) => {
           expect(res.res.status).to.equal(200);
@@ -31,7 +31,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
     });
     it("Create ingredient price", async function () {
       const path = 'http://localhost:3000/ingredientsPrice/createIngredientPrice'
-      const properties = { ingredientId: 16, cant: 1, price: 10, createdAt: new Date()}
+      const properties = { ingredientId: 16, cant: 1, price: 200}
       axios.post(path, properties).
         then((res) => {
           expect(res.res.status).to.equal(201);
@@ -44,8 +44,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
         last_name: 'Bareiro',
         first_name: 'Ádam',
         email: 'adam_casla@gmail.com',
-        note: 'El 9 de San Lorenzo',
-        createdAt: new Date()
+        note: 'El 9 de San Lorenzo'
       }
       axios.post(path, properties).
         then((res) => {
@@ -67,7 +66,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { id: 1, cant: 2 }
       const path = 'http://localhost:3000/products/getPriceByCant'
       const result = await axios.get(path, { data: properties });
-      expect(result.data.ProductPrice).to.equal(66700);
+      expect(result.data.ProductPrice).to.equal(64950);
   });
 
   it("Chequeo que devuelva el precio total de un producto, según la suma de los preicios de sus ingredientes", async function() {

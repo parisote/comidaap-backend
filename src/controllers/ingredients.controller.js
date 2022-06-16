@@ -12,8 +12,7 @@ ingredientsCtrl.createIngredient = async (req, res) => {
             await Ingredient.create({
                 name: name,
                 typeMeasuresId: req.body.typeMeasureId,
-                createdAt: req.body.createdAt,
-                updatedAt: req.body.updatedAt
+                createdAt: new Date()
             })
             res.status(201).send({})
         } else {
