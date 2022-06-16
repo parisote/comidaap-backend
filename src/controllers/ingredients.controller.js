@@ -14,7 +14,7 @@ ingredientsCtrl.createIngredient = async (req,res) => {
     } catch (error) {
        return res.status(500).send(error)
     }    
-    return res.status(200).send()
+    return res.status(201).send()
 }
 
 module.exports = ingredientsCtrl;

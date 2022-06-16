@@ -56,7 +56,7 @@ allergyCtrl.addAllergyToClient = async (req,res) => {
         if(!total || total.length == 0){
             allergy = await FoodAllergyClient.create({ clientId: clientId, ingredientId: ingredientId, createdAt: new Date } );
             result = { clientId:allergy.clientId, ingredientId:allergy.ingredientId, createdAt: allergy.createdAt};
-            res.status(200).send(result);
+            res.status(201).send(result);
         } else {
             result = { result: 'Alergia ya existente'}
             res.status(409).send(result);        }        

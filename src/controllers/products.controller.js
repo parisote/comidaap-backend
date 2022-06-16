@@ -88,7 +88,6 @@ productsCtrl.getIngredientCostByProductId = async (req,res) => {
 } catch (error) {
     res.status(500).send(error)
 }
-
 }
 
 productsCtrl.createProduct = async (req,res) => {
@@ -102,7 +101,7 @@ productsCtrl.createProduct = async (req,res) => {
     } catch(error) {
      res.status(500).send(error)
     }
-     res.status(200).send({})
+     res.status(201).send({})
 }
 
 

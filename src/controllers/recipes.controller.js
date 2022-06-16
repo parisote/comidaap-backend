@@ -14,7 +14,7 @@ recipesCtrl.createRecipe = async (req,res) => {
     } catch (error) {
         res.status(500).send(error)
     }    
-     res.status(200).send({})
+     res.status(201).send({})
 }
 
 module.exports = recipesCtrl;
