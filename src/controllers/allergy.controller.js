@@ -4,11 +4,14 @@ const { FoodAllergyClient, Ingredient } = require('../db/models');
 allergyCtrl.checkAllergyByClientId = async (req,res) => {
     try{
         const { clientId } = req.body;
+        if(isNaN(clientId))
+            throw 'Parametro no correcto';
 
         const total = await FoodAllergyClient.findAll({ 
             where: { clientId: clientId },
             include: [Ingredient]
         })
+
         const hasAllergy = total.length > 0;
         const result = { clientId:clientId, hasAllergy: hasAllergy};
         res.status(200).send(result);
@@ -20,6 +23,8 @@ allergyCtrl.checkAllergyByClientId = async (req,res) => {
 allergyCtrl.checkAllergyByClientIdAndIngredientId = async (req,res) => {
     try{
         const { clientId, ingredientId } = req.body;
+        if(isNaN(clientId)&&(ingredientId))
+            throw 'Parametros no correctos';
 
         const total = await FoodAllergyClient.findAll({ 
             where: { clientId: clientId, ingredientId : ingredientId },
@@ -39,6 +44,8 @@ allergyCtrl.checkAllergyByClientIdAndIngredientId = async (req,res) => {
 allergyCtrl.addAllergyToClient = async (req,res) => {
     try{
         const { clientId, ingredientId } = req.body;
+        if(isNaN(clientId)&&(ingredientId))
+            throw 'Parametros no correctos';
 
         const total = await FoodAllergyClient.findOne({ 
             where: { clientId: clientId, ingredientId : ingredientId }
@@ -62,6 +69,9 @@ allergyCtrl.addAllergyToClient = async (req,res) => {
 allergyCtrl.deleteAllAllergiesToClient = async (req,res) => {
     try{
         const { clientId } = req.body;
+        if(isNaN(clientId))
+            throw 'Parametros no correctos';
+
         await FoodAllergyClient.destroy({ where: { clientId: clientId } } );
         result = { result: 'OK' };
         res.status(200).send(result);
