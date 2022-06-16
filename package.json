@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
     "run-migration": "npx sequelize-cli db:migrate",
     "run-seeders": "npx sequelize-cli db:seed:all",
-    "test-mocha": "mocha --recursive --exit ./test"
+    "test": "mocha"
 },
   "keywords": [],
   "author": "",
