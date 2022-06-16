@@ -2,7 +2,6 @@ const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 
 describe("Comidapp-Allergy", function () {
-
   it("Agrego una alergia a un cliente", async () => {
     const path = 'http://localhost:3000/alergias/addAllergyToClient'
     const properties = { clientId: 3, ingredientId: 1 }
@@ -51,5 +50,4 @@ describe("Comidapp-Allergy", function () {
     const result = await axios.delete(path, { data: properties });
     expect(result.data.result).to.equal('OK');
   });
-
 });
