@@ -55,8 +55,7 @@ clientsCtrl.createClient = async (req, res) => {
                 first_name: req.body.first_name,
                 email: req.body.email,
                 note: req.body.note,
-                createdAt: req.body.createdAt,
-                updatedAt: req.body.updatedAt
+                createdAt: new Date()
             })
             res.status(201).send({})
         } else {

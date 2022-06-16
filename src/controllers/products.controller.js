@@ -120,8 +120,7 @@ productsCtrl.createProduct = async (req, res) => {
             await Product.create({
                 name: name,
                 description: req.body.description,
-                createdAt: req.body.createdAt,
-                updatedAt: req.body.updatedAt
+                createdAt: new Date()
             })
             res.status(201).send({})
 

@@ -15,8 +15,7 @@ ingredientsPriceCtrl.createIngredientPrice = async (req, res) => {
                     ingredientId: ingredientId,
                     cant: cant,
                     price: price,
-                    createdAt: req.body.createdAt,
-                    updatedAt: req.body.updatedAt
+                    createdAt: new Date()
                 })
                 res.status(200).send({})
 
