@@ -1,8 +1,6 @@
 const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice} = require("../src/db/models");
-const app = require('../src/app.js')
-require('dotenv').config();
 const myPath = "http://localhost:"+process.env.PUERTO+"/recipes/createRecipe"
 
 describe("Test Recipes", () => {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "start": "node src/index.js",
+    "test": "mocha --exit",
     "dev": "nodemon src/index.js",
     "run-migration": "npx sequelize-cli db:migrate",
     "run-seeders": "npx sequelize-cli db:seed:all",

@@ -59,6 +59,7 @@ recipesCtrl.createRecipe = async (req, res) => {
      
     )
   );
+  
     await Promise.all(promisesIngred)
 
   // Impactar en la tabla de ingredient price
