@@ -67,10 +67,14 @@ recipesCtrl.createRecipe = async (req, res) => {
 
   // Impactar en la tabla de ingredient price
   let countPrice = 0;
-  const productId = productCreate.id;
+  //const productId = productCreate.id;
+  let iIds = []
+  amount.forEach(element => {
+    iIds.push(element.id)
+  });
 
   const priceIngredients = await IngredientsPrice.findAll({
-        where: { ingredientId: [2,4,10,6] }
+        where: { ingredientId: iIds }
     });
   
   for (const i of priceIngredients) {
@@ -80,7 +84,7 @@ recipesCtrl.createRecipe = async (req, res) => {
       }
     });
   }
-  
+
   await IngredientsPrice.create ({
     ingredientId: ingredientCreate.id,
     cant: 1,
