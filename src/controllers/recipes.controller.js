@@ -1,6 +1,6 @@
 const recipesCtrl = {};
-const { Recipe, Product, Ingredient, TypeMeasure, IngredientPrice, Sequelize, sequelize } = require("../db/models");
-const productsCtrl = {};
+const { Recipe, Product, Ingredient, TypeMeasure, IngredientsPrice } = require("../db/models");
+const {Op} = require('sequelize')
 
 recipesCtrl.createRecipe = async (req, res) => {
   try {
@@ -40,52 +40,53 @@ recipesCtrl.createRecipe = async (req, res) => {
       name: products.name,
       description: products.description,
       createdAt: new Date,
-  })
+  });
+
   //Crear Ingrediente que es un Producto(receta)
   const ingredientCreate = await Ingredient.create ({
     name: products.name,
     typeMeasuresId: typeMeasure,
     createdAt: new Date,
-})
+  });
 
+   let amount = []
    //Impactar en la tabla Recetas
-   const promisesIngred = ingredients.map(async (ingredient) =>
-   await Recipe.create(
-      { productId: productCreate.id,
-        ingredientId: ingredient.id,
-        ingredientCount: (ingredient.amount/producedAmount),
-        createdAt: new Date(),
-     }
-    )
+   const promisesIngred = ingredients.map(async (ingredient) =>{
+    amount.push({id: ingredient.id, count: ingredient.amount/producedAmount})
+    await Recipe.create(
+        { productId: productCreate.id,
+          ingredientId: ingredient.id,
+          ingredientCount: (ingredient.amount/producedAmount),
+          createdAt: new Date(),
+      }
+      )
+    }
   );
   
-    await Promise.all(promisesIngred)
+  await Promise.all(promisesIngred)
 
   // Impactar en la tabla de ingredient price
-  const countPrice = 0;
-  const thisId = productCreate.id;
-  //Buscar en recetas todo lo que tenga ID de producto
-  const auxList = await Recipe.findAll({
-      where: { productId: thisId },
-  });
-  //ingredientId ++ ingredientCount
-  const auxList2 =  []
-    await auxList.forEach(async (element) => {
-   
-  });
+  let countPrice = 0;
+  const productId = productCreate.id;
+
+  const priceIngredients = await IngredientsPrice.findAll({
+        where: { ingredientId: [2,4,10,6] }
+    });
   
-
-
-  const auxListPrice = await IngredientPrice.findOne({
-    where: { ingredientId: IDDDDD },
-  })
- 
-  await IngredientPrice.create ({
+  for (const i of priceIngredients) {
+    amount.forEach(element => {
+      if(i['ingredientId'] == element.id){
+        countPrice += element.count * i['price']
+      }
+    });
+  }
+  
+  await IngredientsPrice.create ({
     ingredientId: ingredientCreate.id,
     cant: 1,
     price: countPrice,
     createdAt: new Date,
-})
+  })
 
   } catch (error) {
     return res.status(500).send(error);
