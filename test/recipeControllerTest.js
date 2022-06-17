@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice} = require("../src/db/models");
 const myPath = "http://localhost:"+process.env.PUERTO+"/recipes/createRecipe"
-/*
+
 describe("Test Recipes", () => {
   describe("Fail Validations ", () => {
     it("Test validation of recipes is null", async () => {
@@ -159,4 +159,4 @@ it("MesureType ID doesn't Exist", async () => {
 
   })
 });
-*/
+

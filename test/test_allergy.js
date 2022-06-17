@@ -1,4 +1,4 @@
-/*const { default: axios } = require("axios");
+const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 
 describe("Comidapp-Allergy", function () {
@@ -54,4 +54,3 @@ describe("Comidapp-Allergy", function () {
   });
 
 });
-*/
