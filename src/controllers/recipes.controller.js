@@ -56,7 +56,6 @@ recipesCtrl.createRecipe = async (req, res) => {
         ingredientCount: (ingredient.amount/producedAmount),
         createdAt: new Date(),
      }
-     
     )
   );
   
@@ -64,24 +63,23 @@ recipesCtrl.createRecipe = async (req, res) => {
 
   // Impactar en la tabla de ingredient price
   const countPrice = 0;
-  const reciteId = productCreate.id;
+  const thisId = productCreate.id;
   //Buscar en recetas todo lo que tenga ID de producto
-  const listIngredIdAndAmount = await Recipe.findAll({
-      where: {productId: reciteId}
-     });
+  const auxList = await Recipe.findAll({
+      where: { productId: thisId },
+  });
+  //ingredientId ++ ingredientCount
+  const auxList2 =  []
+    await auxList.forEach(async (element) => {
+   
+  });
+  
 
-  const listPrices = [] 
-      listIngredIdAndAmount.forEach(async (element) => {
-      await IngredientPrice.findAll({
-        where: {id: element.ingredientId}
-     });
-     listPrices.push(element.price / element.cant)
-     });
 
-  for (let i = 0; i < listIngredIdAndAmount.length; i++) {
-    countPrice += listIngredIdAndAmount[i] *listPrices[i].ingredientCount;
-  }
-
+  const auxListPrice = await IngredientPrice.findOne({
+    where: { ingredientId: IDDDDD },
+  })
+ 
   await IngredientPrice.create ({
     ingredientId: ingredientCreate.id,
     cant: 1,
