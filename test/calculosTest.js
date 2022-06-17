@@ -55,7 +55,7 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
       const properties = { id: 1, cant: 2 }
       const path = 'http://localhost:3000/products/getPriceByCant'
       const result = await axios.get(path, { data: properties });
-      expect(result.data.ProductPrice).to.equal(66100);
+      expect(result.data.ProductPrice).to.equal(63800);
   });
 
   it("Chequeo que devuelva el precio total de un producto, según la suma de los preicios de sus ingredientes", async function() {
@@ -110,11 +110,5 @@ describe("Delete de cliente, ingrediente, producto y receta", () => {
     const result = await axios.delete(path, { data: properties });
     expect(result.data.result).to.equal('OK');
   });
-  
-  it("Delete recipe", async function () {
-    const properties = {productId:1,ingredientId:7}
-    const path = 'http://localhost:3000/recipes/deleteRecipe'
-    const result = await axios.delete(path, { data: properties });
-    expect(result.data.result).to.equal('OK');
-  });  
+   
 });
