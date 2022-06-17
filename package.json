@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "mocha --exit",
+    "test": "mocha",
     "dev": "nodemon src/index.js",
     "run-migration": "npx sequelize-cli db:migrate",
-    "run-seeders": "npx sequelize-cli db:seed:all",
-    "test-mocha": "mocha --recursive --exit ./test"
+    "run-seeders": "npx sequelize-cli db:seed:all"
 },
   "keywords": [],
   "author": "",
