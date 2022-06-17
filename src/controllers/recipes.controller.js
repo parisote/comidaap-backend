@@ -1,5 +1,5 @@
 const recipesCtrl = {};
-const { Recipe, Product, Ingredient, TypeMeasure, Sequelize, sequelize } = require("../db/models");
+const { Recipe, Product, Ingredient, TypeMeasure, IngredientPrice, Sequelize, sequelize } = require("../db/models");
 const productsCtrl = {};
 
 recipesCtrl.createRecipe = async (req, res) => {
@@ -42,7 +42,7 @@ recipesCtrl.createRecipe = async (req, res) => {
       createdAt: new Date,
   })
   //Crear Ingrediente que es un Producto(receta)
-  await Ingredient.create ({
+  const ingredientCreate = await Ingredient.create ({
     name: products.name,
     typeMeasuresId: typeMeasure,
     createdAt: new Date,
@@ -50,16 +50,44 @@ recipesCtrl.createRecipe = async (req, res) => {
 
    //Impactar en la tabla Recetas
    const promisesIngred = ingredients.map(async (ingredient) =>
-    Recipe.create(
+   await Recipe.create(
       { productId: productCreate.id,
         ingredientId: ingredient.id,
         ingredientCount: (ingredient.amount/producedAmount),
         createdAt: new Date(),
      }
+     
     )
   );
     await Promise.all(promisesIngred)
-       
+
+  // Impactar en la tabla de ingredient price
+  const countPrice = 0;
+  const reciteId = productCreate.id;
+  //Buscar en recetas todo lo que tenga ID de producto
+  const listIngredIdAndAmount = await Recipe.findAll({
+      where: {productId: reciteId}
+     });
+
+  const listPrices = [] 
+      listIngredIdAndAmount.forEach(async (element) => {
+      await IngredientPrice.findAll({
+        where: {id: element.ingredientId}
+     });
+     listPrices.push(element.price / element.cant)
+     });
+
+  for (let i = 0; i < listIngredIdAndAmount.length; i++) {
+    countPrice += listIngredIdAndAmount[i] *listPrices[i].ingredientCount;
+  }
+
+  await IngredientPrice.create ({
+    ingredientId: ingredientCreate.id,
+    cant: 1,
+    price: countPrice,
+    createdAt: new Date,
+})
+
   } catch (error) {
     return res.status(500).send(error);
   }

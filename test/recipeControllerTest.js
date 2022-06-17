@@ -133,7 +133,7 @@ it("Ingredient ID doesn't Exist", async () => {
     });
 });
 
-it("MesureTyoe ID doesn't Exist", async () => {
+it("MesureType ID doesn't Exist", async () => {
   const properties = { id: 1, cant: 2 };
   const path = myPath;
   axios.post(path, { products: {
