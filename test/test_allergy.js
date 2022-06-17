@@ -13,14 +13,16 @@ describe("Comidapp-Allergy", function () {
     const path = 'http://localhost:3000/alergias/addAllergyToClient'
     const properties = { clientId: 1, ingredientId: 1 }
     const result = await axios.post(path, properties);
-    expect(result.status).to.equal(200) && expect(result.data.result).to.equal('Alergia ya existente');
+    expect(result.data.result).to.equal('Alergia ya existente');
   });
 
   it("Checkeo alergia de usuario con parametro incorrecto", async () => {
     const properties = { clientId: 'asd' }
     const path = 'http://localhost:3000/alergias/checkAllergyByClientId'
+
+
     axios.get(path, { data: properties })
-    .catch((error) => {expect(error.status).to.equal(500)})
+      .catch((error) => {expect(error.status).to.equal(500)})
   });
 
   it("Checkeo si un usuario tiene alergias (POR TRUE)", async () => {
@@ -50,4 +52,5 @@ describe("Comidapp-Allergy", function () {
     const result = await axios.delete(path, { data: properties });
     expect(result.data.result).to.equal('OK');
   });
+
 });

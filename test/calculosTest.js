@@ -2,14 +2,7 @@ const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/models');
 
-const app = require('../src/index')
-require('dotenv').config();
-
 describe("Creación de productos, ingredientes, recetas y clientes", () => {
-  before(function () {
-    app.listen(3000);
-  });
-
   it("Create product", async () => {
     const path = 'http://localhost:3000/products/createProduct'
     const properties = { name: 'Pollo al Espiedo', description: 'Pollo con salsita una delicia' }

@@ -58,6 +58,7 @@ recipesCtrl.createRecipe = async (req, res) => {
      }
     )
   );
+  
     await Promise.all(promisesIngred)
        
   } catch (error) {
