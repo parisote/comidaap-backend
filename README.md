@@ -1,7 +1,5 @@
 **Elementos necesarios:**
   *Descargar e Instalar:
-  *Visual Studio Code
-  *Git
   *Node.js (16.15)
 
 ---
@@ -17,17 +15,18 @@
   * ```$ npm install --save-dev nodemon```      Instalamos la utilidad de inferfaz Nodemon (Wrapper) 
   * ```$ npm install --save-dev mocha```        Instalamos Mocha.js, dependencia para testing
   * ```$ npm i chai```                          Instalamos Chai.js, dependencia para testing
-  * Creamos el archivo ```.gitignore```[Click Aquí](https://github.com/github/gitignore/blob/main/Node.gitignore)
+  * ```$ npm i axios```                         Instalamos Axios, client http para nodejs
   * Creamos el archivo ```index.js``` como principal
   * Creamos el archivo ```.env```  para manejar las variables de entorno
   * Creamos el archivo ```.gitignore```
 
-  * Creamos las carpetas para el desarrollo ```./src/entities```, ```./src/repositories``` y ```./test```
+  * Creamos las carpetas para el desarrollo ```./src/db```, ```./src/controllers```, ```./src/routes``` y ```./test```
 
 ---  
 **Iniciando el Proyecto**
    * 
-   * ```$ npm i --production=false``` para instalar devDependencies de *.json de configuracion
+   * ```$ npm i ``` para instalar dependencias de *.json de configuracion
    * ```$ npm run dev``` para ejecutar el servidor con nodemon
    * ```$ npx sequelize-cli init``` para incorporar una Barra de herramientas de sequelize
+   * ```$ npx test``` para correr los test unitarios
    
