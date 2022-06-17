@@ -59,7 +59,7 @@ allergyCtrl.addAllergyToClient = async (req,res) => {
             res.status(201).send(result);
         } else {
             result = { result: 'Alergia ya existente'}
-            res.status(409).send(result);        }        
+            res.status(200).send(result);        }        
         
     } catch (error){
         res.status(500).send(error);

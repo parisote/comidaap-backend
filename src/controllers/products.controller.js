@@ -20,19 +20,17 @@ productsCtrl.getPriceByCant = async (req, res) => {
         if ((!isNaN(id) || !isNaN(cant)) && product != null) {
             const ingredients = await Recipe.findAll({
                 where: { productId: id },
-                include: [Ingredient]
+                include: { model : Ingredient, include: [ IngredientsPrice ]}
             });
 
             let totalPrice = 0;
             for (const element of ingredients) {
                 const idIngredient = element['Ingredient']['id']
-
-                const a = await IngredientsPrice.findOne({
-                    where: { ingredientId: idIngredient }
-                });
-
-                totalPrice += (element['ingredientCount'] * a['price']) * cant;
+                for(const e of element['Ingredient']['IngredientsPrices']){
+                    totalPrice += (e['price'] * element['ingredientCount']) * cant
+                }
             }
+            
             res.status(200).send({ ProductPrice: totalPrice })
 
         } else {
@@ -55,17 +53,15 @@ productsCtrl.getTotalCostByProductId = async (req, res) => {
             const ingredients = await Recipe.findAll(
                 {
                     where: { productId: id },
-                    include: [Ingredient]
+                    include: { model : Ingredient, include: [ IngredientsPrice ]}
                 });
 
             let totalPrice = 0;
             for (const element of ingredients) {
                 const idIngredient = element['Ingredient']['id']
-                const a = await IngredientsPrice.findOne({
-                    where: { ingredientId: idIngredient }
-                });
-
-                totalPrice += element['ingredientCount'] * a['price'];
+                for(const e of element['Ingredient']['IngredientsPrices']){
+                    totalPrice += (e['price'] * element['ingredientCount'])
+                }
             }
             res.status(200).send({ ProductPrice: totalPrice })
 
@@ -143,7 +139,8 @@ productsCtrl.deleteProductById = async (req, res) => {
             await Product.destroy({
                 where: { id: id }
             })
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
 
         } else {
             res.status(500).send('No existe el producto')
@@ -164,7 +161,8 @@ productsCtrl.deleteProductByName = async (req, res) => {
             await Product.destroy({
                 where: { name: name }
             })
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
 
         } else {
             res.status(500).send('No existe el producto')
