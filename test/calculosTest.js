@@ -66,7 +66,7 @@ describe("Cálculos de precios de productos e ingredientes", () => {
     const properties = { id: 1, cant: 2 }
     const path = 'http://localhost:3000/products/getPriceByCant'
     const result = await axios.get(path, { data: properties });
-    expect(result.data.ProductPrice).to.equal(64950);
+    expect(result.data.ProductPrice).to.equal(66100);
   });
 
   it("Chequeo que devuelva el precio total de un producto, según la suma de los preicios de sus ingredientes", async function () {
