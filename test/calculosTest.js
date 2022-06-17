@@ -12,15 +12,6 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
         })
     });
 
-    it("Create recipe", async function () {
-      const path = 'http://localhost:3000/recipes/createRecipe'
-      const properties = { productId: 1, ingredientId: 7, ingredientCount: 10}
-       axios.post(path, properties).
-        then((res) => {
-          expect(res.res.status).to.equal(201);
-        })
-    });
-
     it("Create ingredient", async function () {
       const path = 'http://localhost:3000/ingredients/createIngredient'
       const properties = { name: 'Jugo de limón', typeMeasuresId: 1}
