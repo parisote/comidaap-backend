@@ -139,7 +139,8 @@ productsCtrl.deleteProductById = async (req, res) => {
             await Product.destroy({
                 where: { id: id }
             })
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
 
         } else {
             res.status(500).send('No existe el producto')
@@ -160,7 +161,8 @@ productsCtrl.deleteProductByName = async (req, res) => {
             await Product.destroy({
                 where: { name: name }
             })
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
 
         } else {
             res.status(500).send('No existe el producto')
