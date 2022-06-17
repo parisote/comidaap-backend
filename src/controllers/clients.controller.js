@@ -75,7 +75,8 @@ clientsCtrl.deleteClientById = async (req, res) => {
             await Client.destroy({
                 where: { id: id }
             });
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
         } else {
             res.status(500).send('No existe el cliente.')
         }
@@ -93,7 +94,8 @@ clientsCtrl.deleteClientByEmail = async (req, res) => {
             await Client.destroy({
                 where: { email: email }
             });
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
 
         } else {
             res.status(500).send('No existe el cliente.')

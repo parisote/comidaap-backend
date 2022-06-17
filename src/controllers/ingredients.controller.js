@@ -52,7 +52,8 @@ ingredientsCtrl.deleteIngredientByName = async (req, res) => {
             await Ingredient.destroy({
                 where: { name: name }
             });
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
         } else {
             res.status(500).send('No existe el ingrediente.')
         }

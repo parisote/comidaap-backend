@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 const { expect, assert } = require("chai");
 const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/models');
-/*
+
  describe("Creación de productos, ingredientes, recetas y clientes", () => {
     it("Create product", async function () {
       const path = 'http://localhost:3000/products/createProduct'
@@ -56,12 +56,10 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
 
   describe("Cálculos de precios de productos e ingredientes", () => {    
   it ("Products should be an Array", async function () {
-    await axios.get('localhost:3000/products/getAllProducts') .then((res) => {
+    await axios.get('http://localhost:3000/products/getAllProducts') .then((res) => {
         assert.equal(res.status,200);
-        done();
     })
 });
-
     it("Chequeo si devuelve el precio de un producto, ingresando la cantidad de productos que necesito", async function() {
       const properties = { id: 1, cant: 2 }
       const path = 'http://localhost:3000/products/getPriceByCant'
@@ -79,71 +77,53 @@ const { Product, Recipe, Ingredient, IngredientsPrice } = require('../src/db/mod
 it ("Chequeo que devuelva un array de los ingredientes del producto ingresado, con su precio", async function () {
   const properties = {id: 2}
   const path = 'http://localhost:3000/products/getIngredientCostByProductId'
-  await axios.get(path, {data: properties}) .then((res) => {
-      assert.equal(res.status,201)&&assert.equal(res.data.ingredientsPrice.length,1)
-      done();
-  })
+  const result = await axios.get(path, {data: properties});
+  expect(result.data.ingredientPrice.length).to.equal(1);
 });
 it ("Chequeo que devuelva el cliente de por su apellido", async function () {
   const properties = {last_name: 'Parry'}
   const path = 'http://localhost:3000/clients/getClientByLastName'
-  await axios.get(path, {data: properties}) .then((res) => {
-      assert.equal(res.status,201)&&assert.equal(res.data.last_name,'Parry')
-      done();
+  const result = await axios.get(path, {data: properties}) 
+  expect(result.data.last_name).to.equal('Parry');
   })
-});
 it ("Chequeo que devuelva el cliente de por su ID", async function () {
   const properties = {id: 7}
   const path = 'http://localhost:3000/clients/getClientById'
-  await axios.get(path, {data: properties}) .then((res) => {
-      assert.equal(res.status,201)&&assert.equal(res.data.id,7)
-      done();
-  })
+  const result = await axios.get(path, {data: properties})
+  expect(result.data.id).to.equal(7);
+});
 });
 
-
-});
-*/
 describe("Delete de cliente, ingrediente, producto y receta", () => { 
   it("Delete client by email", async function () {
+    const properties = { email: 'adam_casla@gmail.com' }
     const path = 'http://localhost:3000/clients/deleteClientByEmail'
-    const properties = {email: 'adam_casla@gmail.com'}
-     await axios.delete(path, properties).
-      then((res) => {
-        expect(res.res.status).to.equal(200);
-      })
+    const result = await axios.delete(path, { data: properties });
+    expect(result.data.result).to.equal('OK');
   });
   it("Delete ingredient price", async function () {
-    const path = 'http://localhost:3000/ingredientsPrice/deleteIngredientPrice'
     const properties = {ingredientId:15}
-    await axios.delete(path, properties).
-      then((res) => {
-        expect(res.res.status).to.equal(200);
-      })
+    const path = 'http://localhost:3000/ingredientsPrice/deleteIngredientPrice'
+    const result = await axios.delete(path, { data: properties });
+    expect(result.data.result).to.equal('OK');
   });
   it("Delete ingredient by name", async function () {
-    const path = 'http://localhost:3000/ingredients/deleteIngredientByName'
     const properties = {name:'Jugo de limón'}
-    await axios.delete(path, properties).
-      then((res) => {
-        expect(res.res.status).to.equal(200);
-      })
-  });
+    const path = 'http://localhost:3000/ingredients/deleteIngredientByName'
+    const result = await axios.delete(path, { data: properties });
+    expect(result.data.result).to.equal('OK');
+  });  
   it("Delete product by name", async function () {
-    const path = 'http://localhost:3000/products/deleteProductByName'
     const properties = {name:'Ravioles'}
-    await axios.delete(path, properties).
-      then((res) => {
-        expect(res.res.status).to.equal(200);
-      })
+    const path = 'http://localhost:3000/products/deleteProductByName'
+    const result = await axios.delete(path, { data: properties });
+    expect(result.data.result).to.equal('OK');
   });
+  
   it("Delete recipe", async function () {
-    const path = 'http://localhost:3000/recipes/deleteRecipe'
     const properties = {productId:1,ingredientId:7}
-    await axios.delete(path, properties).
-      then((res) => {
-        expect(res.res.status).to.equal(200);
-      })
-  });
-
+    const path = 'http://localhost:3000/recipes/deleteRecipe'
+    const result = await axios.delete(path, { data: properties });
+    expect(result.data.result).to.equal('OK');
+  });  
 });

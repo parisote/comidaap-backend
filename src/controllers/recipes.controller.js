@@ -42,7 +42,8 @@ recipesCtrl.deleteRecipe = async (req, res) => {
             await Recipe.destroy({
                 where: { productId: productId, ingredientId: ingredientId }
             });
-            res.status(200).send({})
+            result = { result: 'OK' };
+            res.status(200).send(result)
         } else {
             res.status(500).send('No existe la receta.')
         }
